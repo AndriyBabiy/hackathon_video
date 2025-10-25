@@ -49,8 +49,14 @@ const publicPath = join(__dirname, '../public');
 app.use('/videos', express.static(join(publicPath, 'videos')));
 
 // Serve static client files in production
-if (process.env.NODE_ENV === 'production') {
+// Check for both production and Railway environment
+const isProduction = process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT;
+if (isProduction) {
   const clientDistPath = join(__dirname, '../../client/dist');
+
+  console.log('[Server] Production mode detected');
+  console.log('[Server] Serving static files from:', clientDistPath);
+
   app.use(express.static(clientDistPath));
 
   // Handle client-side routing - serve index.html for all non-API routes
@@ -59,8 +65,11 @@ if (process.env.NODE_ENV === 'production') {
     if (req.path.startsWith('/api') || req.path.startsWith('/socket.io') || req.path.startsWith('/videos')) {
       return next();
     }
+    console.log('[Server] Serving index.html for:', req.path);
     res.sendFile(join(clientDistPath, 'index.html'));
   });
+} else {
+  console.log('[Server] Development mode - not serving client files');
 }
 
 // Health check endpoint
@@ -69,6 +78,20 @@ app.get('/health', (req, res) => {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime()
+  });
+});
+
+// Debug endpoint to check paths and environment
+app.get('/api/debug', (req, res) => {
+  const clientDistPath = join(__dirname, '../../client/dist');
+  res.json({
+    nodeEnv: process.env.NODE_ENV,
+    port: process.env.PORT,
+    clientUrl: process.env.CLIENT_URL,
+    dirname: __dirname,
+    clientDistPath: clientDistPath,
+    publicPath: publicPath,
+    cwd: process.cwd()
   });
 });
 
