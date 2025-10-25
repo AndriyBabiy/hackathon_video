@@ -1,18 +1,22 @@
-# Use Node.js 20 LTS
-FROM node:20-alpine AS base
+# Use Node.js 20 LTS (Debian-based for Rollup compatibility)
+FROM node:20-slim AS base
 
-# Install dependencies for building
-RUN apk add --no-cache libc6-compat
+# Install dependencies for building native modules
+RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-COPY apps/client/package*.json ./apps/client/
-COPY apps/server/package*.json ./apps/server/
-COPY packages/shared/package*.json ./packages/shared/
+# Copy package files (but NOT package-lock.json - it has wrong platform binaries)
+COPY package.json ./
+COPY apps/client/package.json ./apps/client/
+COPY apps/server/package.json ./apps/server/
+COPY packages/shared/package.json ./packages/shared/
 
-# Install dependencies with legacy peer deps
+# Install dependencies - will fetch correct Linux binaries
 RUN npm install --legacy-peer-deps --no-audit --no-fund
 
 # Copy TypeScript configs first
@@ -39,7 +43,7 @@ COPY railway.json ./
 RUN npm run build:shared && npm run build:server && npm run build:client
 
 # Production stage
-FROM node:20-alpine AS runner
+FROM node:20-slim AS runner
 
 WORKDIR /app
 
