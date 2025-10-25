@@ -1,0 +1,83 @@
+{
+  "startNodeId": "intro",
+  "nodes": [
+    {
+      "id": "intro",
+      "videoFile": "intro.mp4",
+      "type": "decision",
+      "title": "The Adventure Begins",
+      "options": [
+        {
+          "id": "explore_forest",
+          "text": "Explore the mysterious forest",
+          "nextNodeId": "forest_path"
+        },
+        {
+          "id": "visit_village",
+          "text": "Visit the nearby village",
+          "nextNodeId": "village_path"
+        }
+      ]
+    },
+    {
+      "id": "forest_path",
+      "videoFile": "forest_path.mp4",
+      "type": "decision",
+      "title": "Deep in the Forest",
+      "options": [
+        {
+          "id": "follow_sound",
+          "text": "Follow the mysterious sound",
+          "nextNodeId": "forest_ending_1"
+        },
+        {
+          "id": "return_back",
+          "text": "Return to safety",
+          "nextNodeId": "forest_ending_2"
+        }
+      ]
+    },
+    {
+      "id": "village_path",
+      "videoFile": "village_path.mp4",
+      "type": "decision",
+      "title": "At the Village Square",
+      "options": [
+        {
+          "id": "talk_elder",
+          "text": "Talk to the village elder",
+          "nextNodeId": "village_ending_1"
+        },
+        {
+          "id": "investigate_market",
+          "text": "Investigate the market",
+          "nextNodeId": "village_ending_2"
+        }
+      ]
+    },
+    {
+      "id": "forest_ending_1",
+      "videoFile": "forest_ending_1.mp4",
+      "type": "ending",
+      "title": "The Discovery"
+    },
+    {
+      "id": "forest_ending_2",
+      "videoFile": "forest_ending_2.mp4",
+      "type": "ending",
+      "title": "Safe Return"
+    },
+    {
+      "id": "village_ending_1",
+      "videoFile": "village_ending_1.mp4",
+      "type": "ending",
+      "title": "Ancient Wisdom"
+    },
+    {
+      "id": "village_ending_2",
+      "videoFile": "village_ending_2.mp4",
+      "type": "ending",
+      "title": "Market Mystery"
+    }
+  ]
+}

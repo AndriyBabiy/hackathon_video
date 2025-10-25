@@ -1,0 +1,71 @@
+{
+  "startNodeId": "gaming",
+  "nodes": [
+    {
+      "id": "gaming",
+      "videoFile": "gaming.mp4",
+      "type": "decision",
+      "title": "Late Night Gaming Session",
+      "options": [
+        {
+          "id": "order_food",
+          "text": "Order some food",
+          "nextNodeId": "eat"
+        },
+        {
+          "id": "keep_gaming",
+          "text": "Keep gaming a bit longer",
+          "nextNodeId": "eat"
+        }
+      ]
+    },
+    {
+      "id": "eat",
+      "videoFile": "eat.mp4",
+      "type": "decision",
+      "title": "Food Break",
+      "options": [
+        {
+          "id": "go_to_party",
+          "text": "Hit up the party",
+          "nextNodeId": "party"
+        },
+        {
+          "id": "chill_at_home",
+          "text": "Chill at home instead",
+          "nextNodeId": "wakeup"
+        }
+      ]
+    },
+    {
+      "id": "party",
+      "videoFile": "party.mp4",
+      "type": "decision",
+      "title": "The Party is Wild",
+      "options": [
+        {
+          "id": "keep_partying",
+          "text": "Keep the party going!",
+          "nextNodeId": "zombies"
+        },
+        {
+          "id": "go_home",
+          "text": "Head home and get some sleep",
+          "nextNodeId": "wakeup"
+        }
+      ]
+    },
+    {
+      "id": "zombies",
+      "videoFile": "zombies.mp4",
+      "type": "ending",
+      "title": "Zombie Mode Activated"
+    },
+    {
+      "id": "wakeup",
+      "videoFile": "wakeup.mp4",
+      "type": "ending",
+      "title": "Fresh Morning"
+    }
+  ]
+}
