@@ -1,8 +1,20 @@
+[variables]
+NODE_ENV = "production"
+
+[phases.setup]
+nixPkgs = ["nodejs_20", "npm-9_x"]
+
 [phases.install]
-cmd = "npm install --legacy-peer-deps"
+dependsOn = ["setup"]
+cmds = [
+  "npm install --legacy-peer-deps --no-audit --no-fund"
+]
 
 [phases.build]
-cmd = "npm run build"
+dependsOn = ["install"]
+cmds = [
+  "npm run build"
+]
 
 [start]
 cmd = "npm start"
